@@ -1,5 +1,4 @@
 import { Container, Navbar, Nav } from 'react-bootstrap'
-import { FaShoppingCart, FaUser } from 'react-icons/fa'
 
 function Header() {
   return (
