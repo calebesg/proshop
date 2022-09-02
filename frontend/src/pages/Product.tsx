@@ -1,13 +1,38 @@
+import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 
+import api from '../libs/api'
+
 import Rating from '../components/Rating'
 
-import products from '../products'
+interface IProduct {
+  _id: string
+  name: string
+  image: string
+  description: string
+  brand: string
+  category: string
+  price: number
+  countInStock: number
+  rating: number
+  numReviews: number
+}
 
 function Product() {
+  const [product, setProduct] = useState<IProduct>({} as IProduct)
+
   const params = useParams()
-  const product = products.find(item => item._id === params.id)
+  const id = params.id
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await api.get(`/api/product/${id}`)
+      setProduct(response.data)
+    }
+
+    fetchProduct()
+  }, [id])
 
   if (!product) return null
 

@@ -1,10 +1,35 @@
+import { useState, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
+
+import api from '../libs/api'
 
 import ProductCard from '../components/ProductCard'
 
-import products from '../products'
+interface IProduct {
+  _id: string
+  name: string
+  image: string
+  description: string
+  brand: string
+  category: string
+  price: number
+  countInStock: number
+  rating: number
+  numReviews: number
+}
 
 function Home() {
+  const [products, setProducts] = useState<IProduct[]>([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await api.get('/api/product')
+      setProducts(response.data)
+    }
+
+    fetchProducts()
+  }, [])
+
   return (
     <>
       <h1>Ultimos Produtos</h1>
