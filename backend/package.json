@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "data:import": "tsnd src/seeder.ts",
+    "data:destroy": "tsnd src/seeder.ts -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

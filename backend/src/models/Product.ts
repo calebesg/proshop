@@ -4,17 +4,17 @@ const reviewSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
 
     rating: {
       type: Number,
-      require: true,
+      required: true,
     },
 
     comment: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }
