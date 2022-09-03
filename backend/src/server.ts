@@ -1,7 +1,16 @@
+import * as dotenv from 'dotenv'
 import express from 'express'
+import cors from 'cors'
 import products from './data/products'
+import connectDB from './config/db'
+
+dotenv.config()
+
+connectDB()
 
 const app = express()
+
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('API running...')
