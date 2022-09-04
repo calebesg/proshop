@@ -4,6 +4,7 @@ import cors from 'cors'
 
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
+import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 dotenv.config()
 
@@ -13,10 +14,8 @@ const app = express()
 
 app.use(cors())
 
-app.get('/', (req, res) => {
-  res.send('API running...')
-})
+app.use('/api/products', productRoutes)
+app.use(notFound)
+app.use(errorHandler)
 
-app.get('/api/products', productRoutes)
-
-app.listen(3333, () => console.log('SERVER RUNNING: POST 3333'))
+app.listen(3333, () => console.log('SERVER RUNNING: PORT 3333'))

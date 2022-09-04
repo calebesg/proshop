@@ -25,8 +25,8 @@ routes.get(
     const product = await Product.findById(id)
 
     if (!product) {
-      res.status(404).json({ message: 'Product not found' })
-      return
+      res.status(404)
+      throw new Error('Product not found')
     }
 
     res.json(product)
