@@ -27,7 +27,7 @@ function Product() {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await api.get(`/api/product/${id}`)
+      const response = await api.get(`/api/products/${id}`)
       setProduct(response.data)
     }
 
@@ -39,7 +39,7 @@ function Product() {
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">
-        Go Back
+        Voltar
       </Link>
 
       <Row className="mt-3">

@@ -23,7 +23,7 @@ function Home() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await api.get('/api/product')
+      const response = await api.get('/api/products')
       setProducts(response.data)
     }
 
