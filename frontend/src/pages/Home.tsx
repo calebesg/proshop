@@ -3,24 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 
 import ProductCard from '../components/ProductCard'
-import { ProductState } from '../reducers/productReducer'
-import { listProducts } from '../actions/productActions'
+import { ProductState, listProducts } from '../store'
 
-interface IState {
+interface IStoreStates {
   productList: ProductState
 }
 
 function Home() {
   const dispatch = useDispatch()
-  const { error, loading, products } = useSelector((state: IState) => {
+  const { error, loading, products } = useSelector((state: IStoreStates) => {
     return state.productList
   })
 
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
-
-  if (!products) return null
 
   return (
     <>
