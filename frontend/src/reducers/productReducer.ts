@@ -1,18 +1,46 @@
 import { productType } from '../constants/productConstants'
 
-type Action = {
+interface ActionType {
   type: string
   payload: any
 }
 
-export function productListReducer(state = { products: [] }, action: Action) {
+interface IProduct {
+  _id: string
+  name: string
+  image: string
+  description: string
+  brand: string
+  category: string
+  price: number
+  countInStock: number
+  rating: number
+  numReviews: number
+}
+
+export interface ProductState {
+  loading: boolean
+  products: IProduct[]
+  error: string
+}
+
+const initialState = {
+  loading: false,
+  products: [],
+  error: '',
+} as ProductState
+
+export function productListReducer(
+  state = initialState,
+  action: ActionType
+): ProductState {
   switch (action.type) {
     case productType.PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [] }
+      return { ...state, loading: true }
     case productType.PRODUCT_LIST_SUCCESS:
-      return { loading: true, products: action.payload }
+      return { ...state, loading: false, products: action.payload }
     case productType.PRODUCT_LIST_FAIL:
-      return { loading: true, error: action.payload }
+      return { ...state, loading: false, error: action.payload }
     default:
       return state
   }
