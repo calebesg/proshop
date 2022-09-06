@@ -1,41 +1,30 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 
-import api from '../libs/api'
-
 import ProductCard from '../components/ProductCard'
+import { ProductState, listProducts } from '../store'
 
-interface IProduct {
-  _id: string
-  name: string
-  image: string
-  description: string
-  brand: string
-  category: string
-  price: number
-  countInStock: number
-  rating: number
-  numReviews: number
+interface IStoreStates {
+  productList: ProductState
 }
 
 function Home() {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const dispatch = useDispatch()
+  const { error, loading, products } = useSelector((state: IStoreStates) => {
+    return state.productList
+  })
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await api.get('/api/product')
-      setProducts(response.data)
-    }
-
-    fetchProducts()
-  }, [])
+    dispatch(listProducts())
+  }, [dispatch])
 
   return (
     <>
       <h1>Ultimos Produtos</h1>
 
       <Row>
-        {products.map(product => {
+        {products?.map(product => {
           return (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
               <ProductCard product={product} />
