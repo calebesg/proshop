@@ -5,11 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { ProductState, listProducts } from '../store'
-
-interface IStoreStates {
-  productList: ProductState
-}
+import { IStoreStates, listProducts } from '../store'
 
 function Home() {
   const dispatch = useDispatch()

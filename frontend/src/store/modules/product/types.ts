@@ -16,8 +16,14 @@ export interface ActionType {
   payload?: any
 }
 
-export interface ProductState {
+export interface IProductListState {
   loading: boolean
   products: IProduct[]
+  error: string
+}
+
+export interface IProductDetailState {
+  loading: boolean
+  product: IProduct
   error: string
 }
