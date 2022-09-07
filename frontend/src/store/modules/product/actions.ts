@@ -20,10 +20,10 @@ export const listProducts: ActionCreator<any> = () => {
         type: PRODUCT_LIST_SUCCESS,
         payload: data,
       })
-    } catch (error) {
+    } catch (error: any) {
       return dispatch({
         type: PRODUCT_LIST_FAIL,
-        payload: error,
+        payload: error.message,
       })
     }
   }

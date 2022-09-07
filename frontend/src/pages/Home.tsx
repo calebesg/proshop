@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 
 import ProductCard from '../components/ProductCard'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 import { ProductState, listProducts } from '../store'
 
 interface IStoreStates {
@@ -18,6 +20,18 @@ function Home() {
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
+
+  if (loading) {
+    return (
+      <div style={{ height: '60vh', display: 'flex', alignItems: 'center' }}>
+        <Loader />
+      </div>
+    )
+  }
+
+  if (error) {
+    return <Message variant="danger">{error}</Message>
+  }
 
   return (
     <>
