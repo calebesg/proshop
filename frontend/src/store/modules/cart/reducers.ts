@@ -1,16 +1,7 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './constants'
-import { IProduct } from '../product/types'
-import { ActionType } from './types'
+import { ActionType, ICartState } from './types'
 
-interface IItemCart {
-  product: IProduct
-}
-
-interface ICart {
-  cartItems: IItemCart[]
-}
-
-const initialState: ICart = {
+const initialState: ICartState = {
   cartItems: [],
 }
 
@@ -37,7 +28,12 @@ export const cartReducer = (state = initialState, action: ActionType) => {
         ),
       }
     case CART_REMOVE_ITEM:
-      return { ...state }
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          item => item.product !== action.payload
+        ),
+      }
     default:
       return state
   }

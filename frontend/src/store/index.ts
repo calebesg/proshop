@@ -10,4 +10,4 @@ export type {
 } from './modules/product/types'
 
 export { listProducts, productDetail } from './modules/product/actions'
-export { addToCart } from './modules/cart/actions'
+export { addToCart, removeFromCart } from './modules/cart/actions'

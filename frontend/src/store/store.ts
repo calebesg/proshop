@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { IProductDetailState, IProductListState } from './'
 import { productList, productDetail } from './modules/product/reducers'
 import { cartReducer } from './modules/cart/reducers'
+import { ICartState } from './modules/cart/types'
 
 const reducers = combineReducers({
   productList: productList,
@@ -31,6 +32,7 @@ const store = createStore(
 export interface IStoreStates {
   productList: IProductListState
   productDetail: IProductDetailState
+  cart: ICartState
 }
 
 export default store
