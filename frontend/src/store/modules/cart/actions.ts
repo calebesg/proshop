@@ -1,10 +1,10 @@
-import { Dispatch } from 'redux'
+import { Dispatch, ActionCreator } from 'redux'
 
 import api from '../../../libs/api'
 import { CART_ADD_ITEM } from './constants'
 import { ActionType } from './types'
 
-export const addToCart = (id: string, qty: number) => {
+export const addToCart: ActionCreator<any> = (id: string, qty: number) => {
   return async (dispatch: Dispatch<ActionType>, getState: any) => {
     const { data } = await api.get(`/api/products/${id}`)
 

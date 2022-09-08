@@ -32,7 +32,7 @@ export const cartReducer = (state = initialState, action: ActionType) => {
 
       return {
         ...state,
-        cartItem: state.cartItems.map(itemCart =>
+        cartItems: state.cartItems.map(itemCart =>
           itemCart.product === existItem.product ? item : itemCart
         ),
       }
