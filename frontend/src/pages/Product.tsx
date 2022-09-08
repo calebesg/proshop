@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
@@ -10,17 +10,24 @@ import Message from '../components/Message'
 import { IStoreStates, productDetail } from '../store'
 
 function Product() {
+  const [qty, setQty] = useState(1)
+
   const dispatch = useDispatch()
   const { error, loading, product } = useSelector((state: IStoreStates) => {
     return state.productDetail
   })
 
+  const navigate = useNavigate()
   const params = useParams()
   const id = params.id
 
   useEffect(() => {
     dispatch(productDetail(id))
   }, [id, dispatch])
+
+  const handleAddToCart = () => {
+    navigate(`/carrinho/${id}?qty=${qty}`)
+  }
 
   if (loading) {
     return (
@@ -73,6 +80,29 @@ function Product() {
                 </Row>
               </ListGroup.Item>
 
+              {product.countInStock > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Qty</Col>
+                    <Col>
+                      <Form.Control
+                        as="select"
+                        value={qty}
+                        onChange={e => setQty(+e.target.value)}
+                      >
+                        {[...Array(product.countInStock).keys()].map(value => {
+                          return (
+                            <option key={value} value={value + 1}>
+                              {value + 1}
+                            </option>
+                          )
+                        })}
+                      </Form.Control>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              )}
+
               <ListGroup.Item>
                 <Row>
                   <Col>Estoque: </Col>
@@ -84,6 +114,7 @@ function Product() {
 
               <ListGroup.Item>
                 <Button
+                  onClick={handleAddToCart}
                   className="btn-block"
                   style={{ width: '100%' }}
                   type="button"
