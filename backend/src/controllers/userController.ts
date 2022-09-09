@@ -28,4 +28,23 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
   throw new Error('Invalid email or password')
 })
 
-export { authUser }
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const user = await User.findById(req.body._id)
+
+  if (!user) {
+    res.status(404)
+    throw new Error('User Not Found!')
+  }
+
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+  })
+})
+
+export { authUser, getUserProfile }
