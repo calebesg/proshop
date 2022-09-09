@@ -28,6 +28,41 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
   throw new Error('Invalid email or password')
 })
 
+// @desc    Register a new user
+// @route   POST /api/users
+// @access  Public
+const registerUser = asyncHandler(async (req: Request, res: Response) => {
+  const { name, email, password } = req.body
+
+  const userExist = await User.findOne({ email })
+
+  if (userExist) {
+    res.status(400)
+    throw new Error('User already exists!')
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+  })
+
+  if (!user?.name) {
+    res.status(400)
+    throw new Error('Invalid user data!')
+  }
+
+  const token = generateToken(String(user._id))
+
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    token,
+  })
+})
+
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
@@ -47,4 +82,4 @@ const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
   })
 })
 
-export { authUser, getUserProfile }
+export { authUser, getUserProfile, registerUser }
