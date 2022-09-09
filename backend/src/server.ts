@@ -4,6 +4,7 @@ import cors from 'cors'
 
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
+import userRoutes from './routes/userRoutes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 dotenv.config()
@@ -13,8 +14,11 @@ connectDB()
 const app = express()
 
 app.use(cors())
+app.use(express.json())
 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
+
 app.use(notFound)
 app.use(errorHandler)
 
