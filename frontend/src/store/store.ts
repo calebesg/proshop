@@ -6,19 +6,31 @@ import { IProductDetailState, IProductListState } from './'
 import { productList, productDetail } from './modules/product/reducers'
 import { cartReducer } from './modules/cart/reducers'
 import { ICartState } from './modules/cart/types'
+import { userLoginReducer } from './modules/user/reducers'
+import { IUserState } from './modules/user/types'
 
 const reducers = combineReducers({
   productList: productList,
   productDetail: productDetail,
   cart: cartReducer,
+  userLogin: userLoginReducer,
 })
 
 const savedCartItems = localStorage.getItem('@proshop:cart')
   ? JSON.parse(localStorage.getItem('@proshop:cart') as string)
   : []
 
+const savedUser = localStorage.getItem('@proshop:logged')
+  ? JSON.parse(localStorage.getItem('@proshop:logged') as string)
+  : null
+
 const initialState = {
   cart: { cartItems: savedCartItems },
+  userLogin: {
+    loading: false,
+    userInfo: savedUser,
+    error: '',
+  },
 }
 
 const middleware = [thunk]
@@ -33,6 +45,7 @@ export interface IStoreStates {
   productList: IProductListState
   productDetail: IProductDetailState
   cart: ICartState
+  userLogin: IUserState
 }
 
 export default store

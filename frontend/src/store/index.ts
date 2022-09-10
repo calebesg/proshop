@@ -11,3 +11,4 @@ export type {
 
 export { listProducts, productDetail } from './modules/product/actions'
 export { addToCart, removeFromCart } from './modules/cart/actions'
+export { login } from './modules/user/actions'

@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Product from './pages/Product'
 import ShoppingCart from './pages/ShoppingCart'
+import Login from './pages/Login'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/carrinho" element={<ShoppingCart />}>
               <Route path="/carrinho/:id" element={<ShoppingCart />} />
             </Route>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Container>
       </main>
