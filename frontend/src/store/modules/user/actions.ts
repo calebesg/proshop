@@ -4,6 +4,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
 } from './constants'
 import { ActionType } from './types'
 import api from '../../../libs/api'
@@ -40,5 +41,14 @@ export const login: ActionCreator<any> = (email: string, password: string) => {
             : error.message,
       })
     }
+  }
+}
+
+export const logout: ActionCreator<any> = () => {
+  return (dispatch: Dispatch<ActionType>) => {
+    localStorage.removeItem('@proshop:logged')
+    dispatch({
+      type: USER_LOGOUT,
+    })
   }
 }
