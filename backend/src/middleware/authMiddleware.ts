@@ -24,7 +24,7 @@ const protect = asyncHandler(
 
       const user = await User.findById(decoded.id).select('-password')
 
-      req.body = user
+      req.body = { ...req.body, user }
 
       next()
     } catch (error) {
