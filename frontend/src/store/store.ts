@@ -6,7 +6,7 @@ import { IProductDetailState, IProductListState } from './'
 import { productList, productDetail } from './modules/product/reducers'
 import { cartReducer } from './modules/cart/reducers'
 import { ICartState } from './modules/cart/types'
-import { userLoginReducer } from './modules/user/reducers'
+import { userLoginReducer, userRegisterReducer } from './modules/user/reducers'
 import { IUserState } from './modules/user/types'
 
 const reducers = combineReducers({
@@ -14,6 +14,7 @@ const reducers = combineReducers({
   productDetail: productDetail,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 })
 
 const savedCartItems = localStorage.getItem('@proshop:cart')
@@ -46,6 +47,7 @@ export interface IStoreStates {
   productDetail: IProductDetailState
   cart: ICartState
   userLogin: IUserState
+  userRegister: IUserState
 }
 
 export default store
