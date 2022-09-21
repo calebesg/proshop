@@ -53,7 +53,7 @@ export interface IStoreStates {
   cart: ICartState
   userLogin: IUserState
   userRegister: IUserState
-  userDetail: IUserState
+  userDetails: IUserState
 }
 
 export default store
