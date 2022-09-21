@@ -5,6 +5,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { IStoreStates, getUserDetail } from '../store'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { updateUserProfile } from '../store/modules/user/actions'
 
 function Profile() {
   const [name, setName] = useState('')
@@ -21,6 +22,10 @@ function Profile() {
 
   const { userInfo: loggedUser } = useSelector((state: IStoreStates) => {
     return state.userLogin
+  })
+
+  const { userInfo: userUpdated } = useSelector((state: IStoreStates) => {
+    return state.userUpdateProfile
   })
 
   const navigate = useNavigate()
@@ -48,7 +53,7 @@ function Profile() {
       return
     }
 
-    // dispatch(register(name, email, password))
+    dispatch(updateUserProfile({ id: userInfo?._id, name, email, password }))
   }
 
   return (
@@ -58,6 +63,9 @@ function Profile() {
 
         {error && <Message variant="danger">{error}</Message>}
         {message && <Message variant="danger">{message}</Message>}
+        {userUpdated && (
+          <Message variant="success">Seus dados foram atualizados</Message>
+        )}
 
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="name">

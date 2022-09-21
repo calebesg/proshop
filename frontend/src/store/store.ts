@@ -10,6 +10,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailReducer,
+  userUpdateProfileReducer,
 } from './modules/user/reducers'
 import { IUserState } from './modules/user/types'
 
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })
 
 const savedCartItems = localStorage.getItem('@proshop:cart')
@@ -54,6 +56,7 @@ export interface IStoreStates {
   userLogin: IUserState
   userRegister: IUserState
   userDetails: IUserState
+  userUpdateProfile: IUserState
 }
 
 export default store
