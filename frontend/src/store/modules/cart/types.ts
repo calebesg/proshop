@@ -14,6 +14,14 @@ interface IItemCart {
   price: number
 }
 
+interface IShippingAddress {
+  address: string
+  city: string
+  postalCode: string
+  country: string
+}
+
 export interface ICartState {
   cartItems: IItemCart[]
+  shippingAddress: IShippingAddress
 }

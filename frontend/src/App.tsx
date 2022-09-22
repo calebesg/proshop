@@ -9,6 +9,7 @@ import ShoppingCart from './pages/ShoppingCart'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import Shipping from './pages/Shipping'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/carrinho/:id" element={<ShoppingCart />} />
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="/shipping" element={<Shipping />} />
             <Route path="/registrar" element={<Register />} />
             <Route path="/perfil" element={<Profile />} />
           </Routes>
