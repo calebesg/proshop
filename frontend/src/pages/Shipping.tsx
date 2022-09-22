@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 import FormContainer from '../components/FormContainer'
+import CheckoutSteps from '../components/CheckoutSteps'
 import { IStoreStates } from '../store'
 import { saveShippingAddress } from '../store/modules/cart/actions'
 
@@ -27,6 +28,7 @@ function Shipping() {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Local de Entrega</h1>
 
       <Form onSubmit={submitHandler}>
