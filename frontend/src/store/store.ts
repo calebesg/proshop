@@ -32,8 +32,15 @@ const savedUser = localStorage.getItem('@proshop:logged')
   ? JSON.parse(localStorage.getItem('@proshop:logged') as string)
   : null
 
+const savedShippingAddress = localStorage.getItem('@proshop:shippingAddress')
+  ? JSON.parse(localStorage.getItem('@proshop:shippingAddress') as string)
+  : { address: '', city: '', country: '', postalCode: '' }
+
 const initialState = {
-  cart: { cartItems: savedCartItems },
+  cart: {
+    cartItems: savedCartItems,
+    shippingAddress: savedShippingAddress,
+  },
   userLogin: {
     loading: false,
     userInfo: savedUser,

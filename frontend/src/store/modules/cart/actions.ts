@@ -1,7 +1,11 @@
 import { Dispatch, ActionCreator } from 'redux'
 
 import api from '../../../libs/api'
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './constants'
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from './constants'
 import { ActionType } from './types'
 
 export const addToCart: ActionCreator<any> = (id: string, qty: number) => {
@@ -38,5 +42,16 @@ export const removeFromCart: ActionCreator<any> = (id: string) => {
       '@proshop:cart',
       JSON.stringify(getState().cart.cartItems)
     )
+  }
+}
+
+export const saveShippingAddress: ActionCreator<any> = data => {
+  return (dispatch: Dispatch<ActionType>) => {
+    dispatch({
+      type: CART_SAVE_SHIPPING_ADDRESS,
+      payload: data,
+    })
+
+    localStorage.setItem('@proshop:shippingAddress', JSON.stringify(data))
   }
 }
