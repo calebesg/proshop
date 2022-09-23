@@ -1,6 +1,7 @@
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from './constants'
 import { ActionType, ICartState } from './types'
@@ -13,6 +14,7 @@ const initialState: ICartState = {
     postalCode: '',
     address: '',
   },
+  paymentMethod: '',
 }
 
 export const cartReducer = (state = initialState, action: ActionType) => {
@@ -49,6 +51,12 @@ export const cartReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         shippingAddress: action.payload,
+      }
+
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       }
     default:
       return state

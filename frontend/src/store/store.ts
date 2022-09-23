@@ -36,10 +36,15 @@ const savedShippingAddress = localStorage.getItem('@proshop:shippingAddress')
   ? JSON.parse(localStorage.getItem('@proshop:shippingAddress') as string)
   : { address: '', city: '', country: '', postalCode: '' }
 
+const savedPaymentMethod = localStorage.getItem('@proshop:paymentMethod')
+  ? JSON.parse(localStorage.getItem('@proshop:paymentMethod') as string)
+  : ''
+
 const initialState = {
   cart: {
     cartItems: savedCartItems,
     shippingAddress: savedShippingAddress,
+    paymentMethod: savedPaymentMethod,
   },
   userLogin: {
     loading: false,

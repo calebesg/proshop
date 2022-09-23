@@ -10,5 +10,10 @@ export type {
 } from './modules/product/types'
 
 export { listProducts, productDetail } from './modules/product/actions'
-export { addToCart, removeFromCart } from './modules/cart/actions'
+export {
+  addToCart,
+  removeFromCart,
+  savePaymentMethod,
+  saveShippingAddress,
+} from './modules/cart/actions'
 export { login, logout, register, getUserDetail } from './modules/user/actions'
