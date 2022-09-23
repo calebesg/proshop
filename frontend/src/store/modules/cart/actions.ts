@@ -4,6 +4,7 @@ import api from '../../../libs/api'
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from './constants'
 import { ActionType } from './types'
@@ -53,5 +54,16 @@ export const saveShippingAddress: ActionCreator<any> = data => {
     })
 
     localStorage.setItem('@proshop:shippingAddress', JSON.stringify(data))
+  }
+}
+
+export const savePaymentMethod: ActionCreator<any> = data => {
+  return (dispatch: Dispatch<ActionType>) => {
+    dispatch({
+      type: CART_SAVE_PAYMENT_METHOD,
+      payload: data,
+    })
+
+    localStorage.setItem('@proshop:paymentMethod', JSON.stringify(data))
   }
 }

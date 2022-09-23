@@ -24,4 +24,5 @@ interface IShippingAddress {
 export interface ICartState {
   cartItems: IItemCart[]
   shippingAddress: IShippingAddress
+  paymentMethod: string
 }
