@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Shipping from './pages/Shipping'
 import Payment from './pages/Payment'
+import PlaceOrder from './pages/PlaceOrder'
 
 function App() {
   return (
@@ -26,10 +27,11 @@ function App() {
               <Route path="/carrinho/:id" element={<ShoppingCart />} />
             </Route>
             <Route path="/login" element={<Login />} />
-            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/entrega" element={<Shipping />} />
             <Route path="/pagamento" element={<Payment />} />
             <Route path="/registrar" element={<Register />} />
             <Route path="/perfil" element={<Profile />} />
+            <Route path="/resumo" element={<PlaceOrder />} />
           </Routes>
         </Container>
       </main>

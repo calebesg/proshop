@@ -23,7 +23,7 @@ function CheckoutSteps({ step1, step2, step3, step4 }: CheckoutStepsProps) {
 
       <Nav.Item>
         {step2 ? (
-          <LinkContainer to="/shipping">
+          <LinkContainer to="/entrega">
             <Nav.Link>Entrega</Nav.Link>
           </LinkContainer>
         ) : (
@@ -43,11 +43,11 @@ function CheckoutSteps({ step1, step2, step3, step4 }: CheckoutStepsProps) {
 
       <Nav.Item>
         {step4 ? (
-          <LinkContainer to="/placeorder">
-            <Nav.Link>Place Order</Nav.Link>
+          <LinkContainer to="/resumo">
+            <Nav.Link>Resumo</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link disabled>Place Order</Nav.Link>
+          <Nav.Link disabled>Resumo</Nav.Link>
         )}
       </Nav.Item>
     </Nav>
