@@ -24,7 +24,7 @@ function Payment() {
   const submitHandler = (event: FormEvent) => {
     event.preventDefault()
     dispatch(savePaymentMethod(paymentMethod))
-    navigate('/pagamento')
+    navigate('/resumo')
   }
 
   return (

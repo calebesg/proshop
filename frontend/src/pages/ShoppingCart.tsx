@@ -29,7 +29,7 @@ function ShoppingCart() {
   }
 
   const handleCheckout = () => {
-    navigate(`/login?redirect=shipping`)
+    navigate(`/login?redirect=entrega`)
   }
 
   return (
