@@ -1,4 +1,4 @@
-import { FormEvent, useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, ListGroup, Image, Card } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom'
@@ -25,7 +25,7 @@ function PlaceOrder() {
   }, [itemsPrice])
 
   const totalPrice = useMemo(() => {
-    return (itemsPrice + shippingPrice + taxPrice).toFixed(2)
+    return itemsPrice + shippingPrice + taxPrice
   }, [itemsPrice, shippingPrice, taxPrice])
 
   function placeOrderHandler() {
@@ -103,28 +103,32 @@ function PlaceOrder() {
               <ListGroup.Item className="py-3">
                 <Row>
                   <Col>Items</Col>
-                  <Col>R$ {itemsPrice}</Col>
+                  <Col>R$ {itemsPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item className="py-3">
                 <Row>
                   <Col>Frete</Col>
-                  <Col>R$ {shippingPrice}</Col>
+                  <Col>
+                    {shippingPrice === 0
+                      ? 'Grátis'
+                      : `R$ ${shippingPrice.toFixed(2)}`}
+                  </Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item className="py-3">
                 <Row>
                   <Col>Taxa</Col>
-                  <Col>R$ {taxPrice}</Col>
+                  <Col>R$ {taxPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item className="py-3">
                 <Row>
                   <Col>Total</Col>
-                  <Col>R$ {totalPrice}</Col>
+                  <Col>R$ {totalPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
