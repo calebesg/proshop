@@ -1,4 +1,4 @@
-import { ActionType } from './types'
+import { ActionType, IOrder } from './types'
 
 import {
   ORDER_CREATE_FAIL,
@@ -6,7 +6,11 @@ import {
   ORDER_CREATE_SUCCESS,
 } from './constants'
 
-const initialState = {}
+const initialState: IOrder = {
+  loading: false,
+  order: null,
+  error: '',
+}
 
 export const orderCreate = (state = initialState, action: ActionType) => {
   switch (action.type) {
