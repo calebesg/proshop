@@ -5,7 +5,7 @@ export interface ActionType {
   payload?: any
 }
 
-interface IItemCart {
+export interface IItemCart {
   product: string
   name: string
   image: string

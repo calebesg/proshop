@@ -1,16 +1,30 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, ListGroup, Image, Card } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom'
 
 import CheckoutSteps from '../components/CheckoutSteps'
-import { IStoreStates } from '../store'
 import Message from '../components/Message'
+import { IStoreStates, createOrder } from '../store'
 
 function PlaceOrder() {
+  const dispatch = useDispatch()
+
   const { shippingAddress, paymentMethod, cartItems } = useSelector(
     (state: IStoreStates) => state.cart
   )
+
+  const { order, error } = useSelector(
+    (state: IStoreStates) => state.orderCreate
+  )
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (order) {
+      navigate(`/order/${order._id}`)
+    }
+  }, [order, navigate])
 
   const itemsPrice = useMemo(() => {
     return cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
@@ -29,7 +43,17 @@ function PlaceOrder() {
   }, [itemsPrice, shippingPrice, taxPrice])
 
   function placeOrderHandler() {
-    console.log('Pedido Finalizado!')
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+      })
+    )
   }
 
   return (
@@ -130,6 +154,10 @@ function PlaceOrder() {
                   <Col>Total</Col>
                   <Col>R$ {totalPrice.toFixed(2)}</Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
 
               <ListGroup.Item>
