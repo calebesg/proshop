@@ -20,7 +20,6 @@ const addOrderItems = asyncHandler(async (req: Request, res: Response) => {
   if (orderItems && orderItems.length === 0) {
     res.status(400)
     throw new Error('No order items')
-    return
   }
 
   const order = new Order({
@@ -39,4 +38,21 @@ const addOrderItems = asyncHandler(async (req: Request, res: Response) => {
   res.status(201).json(createdOrder)
 })
 
-export { addOrderItems }
+// @desc    Get order by id
+// @route   GET /api/orders/:id
+// @access  Pivate
+const getOrderById = asyncHandler(async (req: Request, res: Response) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  )
+
+  if (!order) {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+
+  res.json(order)
+})
+
+export { addOrderItems, getOrderById }
