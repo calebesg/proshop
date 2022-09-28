@@ -5,6 +5,13 @@ export interface ActionType {
   payload?: any
 }
 
+export interface OrderDetail {
+  loading: boolean
+  orderItems: IItemCart[]
+  shippingAddress: any | null
+  error: string
+}
+
 export interface IOrder {
   loading: boolean
   order: {
