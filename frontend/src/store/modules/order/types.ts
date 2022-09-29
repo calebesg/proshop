@@ -5,19 +5,28 @@ export interface ActionType {
   payload?: any
 }
 
-export interface OrderDetail {
-  loading: boolean
-  orderItems: IItemCart[]
-  shippingAddress: any | null
-  error: string
-}
-
 export interface IOrder {
   loading: boolean
   order: {
-    user: string
+    user: {
+      _id: string
+      name: string
+      email: string
+    }
     orderItems: IItemCart[]
     _id: string
+    shippingAddress: {
+      address: string
+      postalCode: string
+      city: string
+      country: string
+    }
+    shippingPrice: number
+    taxPrice: number
+    totalPrice: number
+    paymentMethod: string
+    isPaid: boolean
+    isDelivered: boolean
   } | null
   error: string
 }

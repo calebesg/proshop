@@ -14,7 +14,7 @@ import {
 } from './modules/user/reducers'
 import { orderCreate, orderDetail } from './modules/order/reducers'
 import { IUserState } from './modules/user/types'
-import { IOrder, OrderDetail } from './modules/order/types'
+import { IOrder } from './modules/order/types'
 
 const reducers = combineReducers({
   productList: productList,
@@ -74,7 +74,7 @@ export interface IStoreStates {
   userDetails: IUserState
   userUpdateProfile: IUserState
   orderCreate: IOrder
-  orderDetail: OrderDetail
+  orderDetails: IOrder
 }
 
 export default store
