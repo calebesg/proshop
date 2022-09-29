@@ -1,4 +1,4 @@
-import { ActionType, IOrder, OrderDetail } from './types'
+import { ActionType, IOrder } from './types'
 
 import {
   ORDER_CREATE_FAIL,
@@ -15,13 +15,6 @@ const initialState: IOrder = {
   error: '',
 }
 
-const detailState: OrderDetail = {
-  loading: false,
-  orderItems: [],
-  shippingAddress: null,
-  error: '',
-}
-
 export const orderCreate = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case ORDER_CREATE_REQUEST:
@@ -35,12 +28,12 @@ export const orderCreate = (state = initialState, action: ActionType) => {
   }
 }
 
-export const orderDetail = (state = detailState, action: ActionType) => {
+export const orderDetail = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, loading: true, error: '' }
     case ORDER_DETAILS_SUCCESS:
-      return { ...state, loading: false, order: action.payload }
+      return { ...state, loading: false, order: action.payload, error: '' }
     case ORDER_DETAILS_FAIL:
       return { ...state, loading: false, error: action.payload }
     default:

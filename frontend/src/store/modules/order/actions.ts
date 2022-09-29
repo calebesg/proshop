@@ -65,7 +65,7 @@ export const getOrderDetails: ActionCreator<any> = id => {
       }
 
       const { data } = await api.get(`/api/orders/${id}`, config)
-
+      console.log(data)
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
         payload: data,
