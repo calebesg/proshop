@@ -12,9 +12,9 @@ import {
   userDetailReducer,
   userUpdateProfileReducer,
 } from './modules/user/reducers'
-import { orderCreate, orderDetail } from './modules/order/reducers'
+import { orderCreate, orderDetail, orderPay } from './modules/order/reducers'
 import { IUserState } from './modules/user/types'
-import { IOrder } from './modules/order/types'
+import { IOrder, IOrderPay } from './modules/order/types'
 
 const reducers = combineReducers({
   productList: productList,
@@ -26,6 +26,7 @@ const reducers = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreate,
   orderDetails: orderDetail,
+  orderPay: orderPay,
 })
 
 const savedCartItems = localStorage.getItem('@proshop:cart')
@@ -75,6 +76,7 @@ export interface IStoreStates {
   userUpdateProfile: IUserState
   orderCreate: IOrder
   orderDetails: IOrder
+  orderPay: IOrderPay
 }
 
 export default store
