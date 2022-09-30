@@ -33,6 +33,8 @@ export interface IOrder {
     paymentMethod: string
     isPaid: boolean
     isDelivered: boolean
+    paidAt: string
+    deliveredAt: string
   } | null
   error: string
 }

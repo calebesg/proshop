@@ -59,9 +59,11 @@ function Order() {
               </p>
 
               {order?.isDelivered ? (
-                <Message variant="success">Sua compra está à caminho</Message>
+                <Message variant="success">
+                  Compra despachada - {order.deliveredAt}
+                </Message>
               ) : (
-                <Message variant="danger">Aguardando</Message>
+                <Message variant="danger">Não entregue</Message>
               )}
             </ListGroup.Item>
 
@@ -72,7 +74,7 @@ function Order() {
                 {order?.paymentMethod}
               </p>
               {order?.isPaid ? (
-                <Message variant="success">pago</Message>
+                <Message variant="success">{order.paidAt}</Message>
               ) : (
                 <Message variant="danger">Aguardando pagamento</Message>
               )}
