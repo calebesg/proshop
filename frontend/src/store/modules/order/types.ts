@@ -5,6 +5,12 @@ export interface ActionType {
   payload?: any
 }
 
+export interface IOrderPay {
+  loading: boolean
+  success: boolean
+  error: string
+}
+
 export interface IOrder {
   loading: boolean
   order: {
