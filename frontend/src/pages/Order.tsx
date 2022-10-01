@@ -1,26 +1,64 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row, ListGroup, Image, Card } from 'react-bootstrap'
 import { useParams, Link } from 'react-router-dom'
+import { PayPalButton } from 'react-paypal-button-v2'
 
 import Message from '../components/Message'
-import { IStoreStates, getOrderDetails } from '../store'
 import Loader from '../components/Loader'
 
+import { IStoreStates, getOrderDetails, orderPay } from '../store'
+import { ORDER_PAY_RESET } from '../store/modules/order/constants'
+import api from '../libs/api'
+import { bindActionCreators } from 'redux'
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
+
 function Order() {
+  const [scriptReady, setScriptReady] = useState(false)
+
   const dispatch = useDispatch()
 
   const { order, error, loading } = useSelector(
     (state: IStoreStates) => state.orderDetails
   )
 
-  const { id } = useParams()
+  const {
+    error: errorPay,
+    loading: loadingPay,
+    success: successPay,
+  } = useSelector((state: IStoreStates) => state.orderPay)
+
+  const { id: orderId } = useParams()
 
   useEffect(() => {
-    if (!order || order._id !== id) {
-      dispatch(getOrderDetails(id))
+    const addPayPalScript = async () => {
+      const { data: clientId } = await api.get('/api/config/paypal')
+
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.async = true
+      script.onload = () => {
+        setScriptReady(true)
+      }
+
+      document.body.appendChild(script)
     }
-  }, [id, dispatch, order])
+
+    if (!order || successPay) {
+      dispatch({ type: ORDER_PAY_RESET })
+      dispatch(getOrderDetails(orderId))
+      return
+    }
+
+    if (!order.isPaid) {
+      // @ts-ignore: Unreachable code error
+      !window.paypal && addPayPalScript()
+      return
+    }
+
+    setScriptReady(true)
+  }, [orderId, dispatch, order, successPay])
 
   const itemsPrice = useMemo(() => {
     return (
@@ -28,6 +66,11 @@ function Order() {
       0
     )
   }, [order?.orderItems])
+
+  const successPaymentHandler = (paymentResult: any) => {
+    console.log(paymentResult)
+    dispatch(orderPay(orderId, paymentResult))
+  }
 
   if (loading) return <Loader />
 
@@ -156,6 +199,20 @@ function Order() {
                   <Col>R$ {order?.totalPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
+
+              {!order?.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {!scriptReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order?.totalPrice.toFixed(2)}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>
