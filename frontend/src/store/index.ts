@@ -17,4 +17,4 @@ export {
   saveShippingAddress,
 } from './modules/cart/actions'
 export { login, logout, register, getUserDetail } from './modules/user/actions'
-export { createOrder, getOrderDetails } from './modules/order/actions'
+export { createOrder, getOrderDetails, orderPay } from './modules/order/actions'
