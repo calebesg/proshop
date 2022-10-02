@@ -115,7 +115,6 @@ function ShoppingCart() {
           </ListGroup>
         </Card>
       </Col>
-      {/* <Col></Col> */}
     </Row>
   )
 }

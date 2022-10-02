@@ -38,7 +38,7 @@ function Payment() {
 
           <Form.Check
             type="radio"
-            label="PayPal ou Cartão de Crédito"
+            label="PayPal ou cartão de crédito"
             id="PayPal"
             name="paymentMethod"
             value="PayPal"

@@ -121,7 +121,7 @@ function PlaceOrder() {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Sumario</h2>
+                <h2>Resumo do Pedido</h2>
               </ListGroup.Item>
 
               <ListGroup.Item className="py-3">
