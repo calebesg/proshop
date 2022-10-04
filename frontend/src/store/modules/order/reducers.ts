@@ -9,6 +9,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_LIST_FAIL,
   ORDER_LIST_REQUEST,
+  ORDER_LIST_RESET,
   ORDER_LIST_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
@@ -83,6 +84,8 @@ export const orderList = (state = ordersState, action: ActionType) => {
       return { ...state, loading: false, orders: action.payload }
     case ORDER_LIST_FAIL:
       return { ...state, loading: false, error: action.payload }
+    case ORDER_LIST_RESET:
+      return { ...ordersState }
     default:
       return state
   }
