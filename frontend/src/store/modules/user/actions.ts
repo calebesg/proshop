@@ -14,7 +14,9 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_DETAILS_RESET,
 } from './constants'
+import { ORDER_LIST_RESET } from '../order/constants'
 import { ActionType } from './types'
 import api from '../../../libs/api'
 
@@ -65,6 +67,14 @@ export const logout: ActionCreator<any> = () => {
     localStorage.removeItem('@proshop:logged')
     dispatch({
       type: USER_LOGOUT,
+    })
+
+    dispatch({
+      type: USER_DETAILS_RESET,
+    })
+
+    dispatch({
+      type: ORDER_LIST_RESET,
     })
   }
 }
