@@ -22,6 +22,7 @@ interface Order {
   isDelivered: boolean
   paidAt: string
   deliveredAt: string
+  createdAt: string
 }
 
 export interface ActionType {
