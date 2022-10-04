@@ -80,4 +80,19 @@ const updateOrderToPaid = asyncHandler(async (req: Request, res: Response) => {
   res.json(updatedOrder)
 })
 
-export { addOrderItems, getOrderById, updateOrderToPaid }
+// @desc    Get logged in user orders
+// @route   GET /api/orders/myorders
+// @access  Pivate
+const getOrdersFromLoggedUser = asyncHandler(
+  async (req: Request, res: Response) => {
+    const orders = await Order.find({ user: req.body.user._id })
+    res.json(orders)
+  }
+)
+
+export {
+  addOrderItems,
+  getOrderById,
+  updateOrderToPaid,
+  getOrdersFromLoggedUser,
+}
