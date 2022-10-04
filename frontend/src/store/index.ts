@@ -9,12 +9,30 @@ export type {
   IProduct,
 } from './modules/product/types'
 
+// PRODUCT =====================================
 export { listProducts, productDetail } from './modules/product/actions'
+
+// CART ========================================
 export {
   addToCart,
   removeFromCart,
   savePaymentMethod,
   saveShippingAddress,
 } from './modules/cart/actions'
-export { login, logout, register, getUserDetail } from './modules/user/actions'
-export { createOrder, getOrderDetails, orderPay } from './modules/order/actions'
+
+// USER ========================================
+export {
+  login,
+  logout,
+  register,
+  getUserDetail,
+  updateUserProfile,
+} from './modules/user/actions'
+
+// ORDERS =======================================
+export {
+  createOrder,
+  getOrderDetails,
+  orderPay,
+  getOrders,
+} from './modules/order/actions'
