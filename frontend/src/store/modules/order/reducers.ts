@@ -1,4 +1,4 @@
-import { ActionType, IOrder, IOrderPay } from './types'
+import { ActionType, IOrder, IOrderList, IOrderPay } from './types'
 
 import {
   ORDER_CREATE_FAIL,
@@ -7,6 +7,9 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_RESET,
@@ -22,6 +25,12 @@ const initialState: IOrder = {
 const payState: IOrderPay = {
   loading: false,
   success: false,
+  error: '',
+}
+
+const ordersState: IOrderList = {
+  loading: false,
+  orders: [],
   error: '',
 }
 
@@ -61,6 +70,19 @@ export const orderPay = (state = payState, action: ActionType) => {
       return { ...state, loading: false, error: action.payload }
     case ORDER_PAY_RESET:
       return { ...payState }
+    default:
+      return state
+  }
+}
+
+export const orderList = (state = ordersState, action: ActionType) => {
+  switch (action.type) {
+    case ORDER_LIST_REQUEST:
+      return { ...state, loading: true }
+    case ORDER_LIST_SUCCESS:
+      return { ...state, loading: false, orders: action.payload }
+    case ORDER_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload }
     default:
       return state
   }
