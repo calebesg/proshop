@@ -15,6 +15,9 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from './constants'
 import { ORDER_LIST_RESET } from '../order/constants'
 import { ActionType } from './types'
@@ -178,6 +181,37 @@ export const updateUserProfile: ActionCreator<any> = (user: UserProfile) => {
     } catch (error: any) {
       dispatch({
         type: USER_UPDATE_PROFILE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+}
+
+export const listUsers: ActionCreator<any> = () => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({ type: USER_LIST_REQUEST })
+
+      const userInfo = getState().userLogin.userInfo
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await api.get('/api/users', config)
+
+      dispatch({
+        type: USER_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: USER_LIST_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

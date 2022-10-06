@@ -21,3 +21,9 @@ export interface IUserState {
   userInfo: IUser | null
   error: string
 }
+
+export interface IUserList {
+  loading: boolean
+  users: IUser[]
+  error: string
+}

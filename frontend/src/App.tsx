@@ -13,6 +13,7 @@ import Shipping from './pages/Shipping'
 import Payment from './pages/Payment'
 import PlaceOrder from './pages/PlaceOrder'
 import Order from './pages/Order'
+import UserList from './pages/UserList'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/pagamento" element={<Payment />} />
             <Route path="/registrar" element={<Register />} />
             <Route path="/perfil" element={<Profile />} />
+            <Route path="/admin/userlist" element={<UserList />} />
             <Route path="/resumo" element={<PlaceOrder />} />
           </Routes>
         </Container>
