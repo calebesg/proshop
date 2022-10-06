@@ -1,9 +1,12 @@
-import { ActionType, IUserState } from './types'
+import { ActionType, IUserList, IUserState } from './types'
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
   USER_DETAILS_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -19,6 +22,12 @@ import {
 const initialState: IUserState = {
   loading: false,
   userInfo: null,
+  error: '',
+}
+
+const listState: IUserList = {
+  loading: false,
+  users: [],
   error: '',
 }
 
@@ -79,6 +88,19 @@ export const userUpdateProfileReducer = (
     case USER_UPDATE_PROFILE_SUCCESS:
       return { ...state, loading: false, userInfo: action.payload }
     case USER_UPDATE_PROFILE_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userListReducer = (state = listState, action: ActionType) => {
+  switch (action.type) {
+    case USER_LIST_REQUEST:
+      return { ...state, loading: true }
+    case USER_LIST_SUCCESS:
+      return { ...state, loading: false, users: action.payload }
+    case USER_LIST_FAIL:
       return { ...state, loading: false, error: action.payload }
     default:
       return state
