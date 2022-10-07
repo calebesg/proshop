@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
@@ -12,13 +13,20 @@ import { IStoreStates } from '../store'
 function UserList() {
   const dispatch = useDispatch()
 
+  const { userInfo } = useSelector((state: IStoreStates) => state.userLogin)
+
   const { error, loading, users } = useSelector(
     (state: IStoreStates) => state.listUsers
   )
 
+  const navigate = useNavigate()
+
   useEffect(() => {
+    if (!userInfo || !userInfo.isAdmin) {
+      navigate('/login')
+    }
     dispatch(listUsers())
-  }, [dispatch])
+  }, [dispatch, navigate])
 
   const deleteHandler = (userId: string) => {
     console.log(userId)
@@ -54,7 +62,10 @@ function UserList() {
                   </td>
                   <td>
                     {user.isAdmin ? (
-                      <i className="fas fa-check" style={{ color: 'red' }}></i>
+                      <i
+                        className="fas fa-check"
+                        style={{ color: 'green' }}
+                      ></i>
                     ) : (
                       <i className="fas fa-times" style={{ color: 'red' }}></i>
                     )}
