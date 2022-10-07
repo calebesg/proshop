@@ -18,6 +18,7 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
+  USER_LIST_RESET,
 } from './constants'
 import { ORDER_LIST_RESET } from '../order/constants'
 import { ActionType } from './types'
@@ -78,6 +79,10 @@ export const logout: ActionCreator<any> = () => {
 
     dispatch({
       type: ORDER_LIST_RESET,
+    })
+
+    dispatch({
+      type: USER_LIST_RESET,
     })
   }
 }
