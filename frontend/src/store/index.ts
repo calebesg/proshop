@@ -27,6 +27,8 @@ export {
   register,
   getUserDetail,
   updateUserProfile,
+  deleteUser,
+  listUsers,
 } from './modules/user/actions'
 
 // ORDERS =======================================

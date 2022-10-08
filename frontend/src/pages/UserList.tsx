@@ -7,8 +7,7 @@ import { Table, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { listUsers } from '../store/modules/user/actions'
-import { IStoreStates } from '../store'
+import { IStoreStates, listUsers, deleteUser } from '../store'
 
 function UserList() {
   const dispatch = useDispatch()
@@ -19,6 +18,10 @@ function UserList() {
     (state: IStoreStates) => state.listUsers
   )
 
+  const { success: isDeletedUser } = useSelector(
+    (state: IStoreStates) => state.deleteUser
+  )
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -26,10 +29,11 @@ function UserList() {
       navigate('/login')
     }
     dispatch(listUsers())
-  }, [dispatch, navigate])
+  }, [dispatch, navigate, isDeletedUser])
 
   const deleteHandler = (userId: string) => {
-    console.log(userId)
+    if (!window.confirm('Confimar remoção do Usuário')) return
+    dispatch(deleteUser(userId))
   }
 
   return (

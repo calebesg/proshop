@@ -19,6 +19,9 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
 } from './constants'
 import { ORDER_LIST_RESET } from '../order/constants'
 import { ActionType } from './types'
@@ -217,6 +220,36 @@ export const listUsers: ActionCreator<any> = () => {
     } catch (error: any) {
       dispatch({
         type: USER_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+}
+
+export const deleteUser: ActionCreator<any> = id => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({ type: USER_DELETE_REQUEST })
+
+      const userInfo = getState().userLogin.userInfo
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      await api.delete(`/api/users/${id}`, config)
+
+      dispatch({
+        type: USER_DELETE_SUCCESS,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: USER_DELETE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

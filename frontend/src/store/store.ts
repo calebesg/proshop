@@ -12,6 +12,7 @@ import {
   userDetailReducer,
   userUpdateProfileReducer,
   userListReducer,
+  deleteUserReducer,
 } from './modules/user/reducers'
 import {
   orderCreate,
@@ -19,7 +20,7 @@ import {
   orderPay,
   orderList,
 } from './modules/order/reducers'
-import { IUserList, IUserState } from './modules/user/types'
+import { IDeleteUserState, IUserList, IUserState } from './modules/user/types'
 import { IOrder, IOrderList, IOrderPay } from './modules/order/types'
 
 const reducers = combineReducers({
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  deleteUser: deleteUserReducer,
   orderCreate: orderCreate,
   orderDetails: orderDetail,
   orderPay: orderPay,
@@ -87,6 +89,7 @@ export interface IStoreStates {
   orderPay: IOrderPay
   userOrders: IOrderList
   listUsers: IUserList
+  deleteUser: IDeleteUserState
 }
 
 export default store
