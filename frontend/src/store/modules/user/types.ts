@@ -22,6 +22,12 @@ export interface IUserState {
   error: string
 }
 
+export interface IDeleteUserState {
+  loading: boolean
+  success: null | boolean
+  error: string
+}
+
 export interface IUserList {
   loading: boolean
   users: IUser[]
