@@ -4,7 +4,7 @@ import Order from '../models/Order'
 
 // @desc    Create new Order
 // @route   POST /api/orders
-// @access  Pivate
+// @access  Private
 const addOrderItems = asyncHandler(async (req: Request, res: Response) => {
   const {
     user,
@@ -40,7 +40,7 @@ const addOrderItems = asyncHandler(async (req: Request, res: Response) => {
 
 // @desc    Get order by id
 // @route   GET /api/orders/:id
-// @access  Pivate
+// @access  Private
 const getOrderById = asyncHandler(async (req: Request, res: Response) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
@@ -57,7 +57,7 @@ const getOrderById = asyncHandler(async (req: Request, res: Response) => {
 
 // @desc    Update order to paid
 // @route   PUT /api/orders/:id/pay
-// @access  Pivate
+// @access  Private
 const updateOrderToPaid = asyncHandler(async (req: Request, res: Response) => {
   const order = await Order.findById(req.params.id)
 
@@ -82,7 +82,7 @@ const updateOrderToPaid = asyncHandler(async (req: Request, res: Response) => {
 
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myorders
-// @access  Pivate
+// @access  Private
 const getOrdersFromLoggedUser = asyncHandler(
   async (req: Request, res: Response) => {
     const orders = await Order.find({ user: req.body.user._id })
