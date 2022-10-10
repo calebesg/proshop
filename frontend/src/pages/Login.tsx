@@ -18,7 +18,7 @@ function Login() {
   })
 
   const [searchParams] = useSearchParams()
-  const redirect = searchParams.get('redirect') || '/'
+  const redirect = searchParams.get('redirect') || ''
 
   const navigate = useNavigate()
 
