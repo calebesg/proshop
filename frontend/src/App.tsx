@@ -14,6 +14,7 @@ import Payment from './pages/Payment'
 import PlaceOrder from './pages/PlaceOrder'
 import Order from './pages/Order'
 import UserList from './pages/UserList'
+import UserEdit from './pages/UserEdit'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/registrar" element={<Register />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/admin/userlist" element={<UserList />} />
+            <Route path="/admin/usuario/:id/edit" element={<UserEdit />} />
             <Route path="/resumo" element={<PlaceOrder />} />
           </Routes>
         </Container>

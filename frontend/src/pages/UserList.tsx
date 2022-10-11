@@ -75,7 +75,7 @@ function UserList() {
                     )}
                   </td>
                   <td>
-                    <LinkContainer to={`/usuario/${user._id}/edit`}>
+                    <LinkContainer to={`/admin/usuario/${user._id}/edit`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
