@@ -2,10 +2,13 @@ import { useState, useEffect, FormEvent } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
+
 import FormContainer from '../components/FormContainer'
-import { IStoreStates, getUserDetail } from '../store'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+
+import { IStoreStates, getUserDetail, updateUser } from '../store'
+import { USER_UPDATE_RESET } from '../store/modules/user/constants'
 
 function UserEdit() {
   const [name, setName] = useState('')
@@ -18,22 +21,34 @@ function UserEdit() {
     return state.userDetails
   })
 
+  const userUpdate = useSelector((state: IStoreStates) => {
+    return state.userUpdate
+  })
+
   const userId = useParams().id
 
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (userUpdate.userInfo && userUpdate.userInfo?.email) {
+      dispatch({ type: USER_UPDATE_RESET })
+      navigate('/admin/userlist')
+      return
+    }
+
     if (!userInfo || userInfo._id !== userId) {
       dispatch(getUserDetail())
-    } else {
-      setName(userInfo.name)
-      setEmail(userInfo.email)
-      setIsAdmin(userInfo.isAdmin)
+      return
     }
-  }, [dispatch, userId, userInfo])
+
+    setName(userInfo.name)
+    setEmail(userInfo.email)
+    setIsAdmin(userInfo.isAdmin)
+  }, [dispatch, userId, userInfo, userUpdate.userInfo, navigate])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+    dispatch(updateUser({ _id: userId, name, email, isAdmin }))
   }
 
   return (
@@ -44,6 +59,11 @@ function UserEdit() {
 
       <FormContainer>
         <h1>Atualizar dados</h1>
+
+        {userUpdate.loading && <Loader />}
+        {userUpdate.error && (
+          <Message variant="danger">{userUpdate.error}</Message>
+        )}
 
         {loading ? (
           <Loader />
