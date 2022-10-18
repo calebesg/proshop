@@ -29,6 +29,7 @@ export {
   updateUserProfile,
   deleteUser,
   listUsers,
+  updateUser,
 } from './modules/user/actions'
 
 // ORDERS =======================================

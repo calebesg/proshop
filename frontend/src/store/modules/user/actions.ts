@@ -22,6 +22,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from './constants'
 import { ORDER_LIST_RESET } from '../order/constants'
 import { ActionType } from './types'
@@ -250,6 +253,38 @@ export const deleteUser: ActionCreator<any> = id => {
     } catch (error: any) {
       dispatch({
         type: USER_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+}
+
+export const updateUser: ActionCreator<any> = user => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({ type: USER_UPDATE_REQUEST })
+
+      const userInfo = getState().userLogin.userInfo
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await api.put(`/api/users/${user._id}`, user, config)
+
+      dispatch({
+        type: USER_UPDATE_SUCCESS,
+        payload: data,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: USER_UPDATE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
