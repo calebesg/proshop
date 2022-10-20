@@ -10,7 +10,11 @@ export type {
 } from './modules/product/types'
 
 // PRODUCT =====================================
-export { listProducts, productDetail } from './modules/product/actions'
+export {
+  listProducts,
+  productDetail,
+  deleteProduct,
+} from './modules/product/actions'
 
 // CART ========================================
 export {

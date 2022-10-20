@@ -3,7 +3,11 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { IProductDetailState, IProductListState } from './'
-import { productList, productDetail } from './modules/product/reducers'
+import {
+  productList,
+  productDetail,
+  productDelete,
+} from './modules/product/reducers'
 import { cartReducer } from './modules/cart/reducers'
 import { ICartState } from './modules/cart/types'
 import {
@@ -23,16 +27,18 @@ import {
 } from './modules/order/reducers'
 import { IDeleteUserState, IUserList, IUserState } from './modules/user/types'
 import { IOrder, IOrderList, IOrderPay } from './modules/order/types'
+import { IProductActionState } from './modules/product/types'
 
 const reducers = combineReducers({
   productList: productList,
   productDetail: productDetail,
+  productDelete: productDelete,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailReducer,
   userUpdateProfile: userUpdateProfileReducer,
-  userUpdate: userDetailReducer,
+  userUpdate: userUpdateReducer,
   deleteUser: deleteUserReducer,
   orderCreate: orderCreate,
   orderDetails: orderDetail,
@@ -81,6 +87,7 @@ const store = createStore(
 export interface IStoreStates {
   productList: IProductListState
   productDetail: IProductDetailState
+  productDelete: IProductActionState
   cart: ICartState
   userLogin: IUserState
   userRegister: IUserState
