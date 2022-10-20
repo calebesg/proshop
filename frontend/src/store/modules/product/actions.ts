@@ -4,6 +4,9 @@ import api from '../../../libs/api'
 import { ActionType } from './types'
 
 import {
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
   PRODUCT_DETAIL_FAIL,
   PRODUCT_DETAIL_REQUEST,
   PRODUCT_DETAIL_SUCCESS,
@@ -47,6 +50,40 @@ export const productDetail: ActionCreator<any> = (id: string) => {
       return dispatch({
         type: PRODUCT_DETAIL_FAIL,
         payload: error.message,
+      })
+    }
+  }
+}
+
+export const deleteProduct: ActionCreator<any> = productId => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({
+        type: PRODUCT_DELETE_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      await api.delete(`/api/products/${productId}`, config)
+
+      dispatch({
+        type: PRODUCT_DELETE_SUCCESS,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: PRODUCT_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       })
     }
   }

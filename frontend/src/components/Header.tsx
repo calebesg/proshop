@@ -42,7 +42,7 @@ function Header() {
                 <LinkContainer to="/admin/userlist">
                   <NavDropdown.Item>Clientes</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/admin/productlist">
+                <LinkContainer to="/admin/produto">
                   <NavDropdown.Item>Produtos</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/orderlist">

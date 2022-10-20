@@ -22,6 +22,12 @@ export interface IProductListState {
   error: string
 }
 
+export interface IProductActionState {
+  loading: boolean
+  success: boolean
+  error: string
+}
+
 export interface IProductDetailState {
   loading: boolean
   product: IProduct

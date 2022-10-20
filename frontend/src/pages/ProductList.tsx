@@ -7,7 +7,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { IStoreStates, listProducts } from '../store'
+import { IStoreStates, listProducts, deleteProduct } from '../store'
 
 function ProductList() {
   const dispatch = useDispatch()
@@ -18,6 +18,10 @@ function ProductList() {
     (state: IStoreStates) => state.productList
   )
 
+  const deletedProduct = useSelector(
+    (state: IStoreStates) => state.productDelete
+  )
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,11 +29,12 @@ function ProductList() {
       navigate('/login')
     }
     dispatch(listProducts())
-  }, [dispatch, navigate, userInfo])
+  }, [dispatch, navigate, userInfo, deletedProduct.success])
 
   const deleteHandler = (productId: string) => {
-    if (!window.confirm('Confimar remoção do Usuário')) return
-    // dispatch(deleteUser(userId))
+    if (!window.confirm('Confimar remoção do Produto')) return
+    console.log('hello')
+    dispatch(deleteProduct(productId))
   }
 
   const createProductHandler = () => {}
@@ -40,12 +45,17 @@ function ProductList() {
         <Col>
           <h1>Produtos</h1>
         </Col>
-        <Col className="text-right">
+        <Col className="text-right d-flex justify-content-end">
           <Button className="my-3" onClick={createProductHandler}>
             <i className="fas fa-plus"></i> Adicionar Produto
           </Button>
         </Col>
       </Row>
+
+      {deletedProduct.loading && <Loader />}
+      {deletedProduct.error && (
+        <Message variant="danger">{deletedProduct.error}</Message>
+      )}
 
       {loading ? (
         <Loader />
