@@ -7,7 +7,13 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { IStoreStates, listProducts, deleteProduct } from '../store'
+import {
+  IStoreStates,
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from '../store'
+import { PRODUCT_CREATE_RESET } from '../store/modules/product/constants'
 
 function ProductList() {
   const dispatch = useDispatch()
@@ -22,14 +28,31 @@ function ProductList() {
     (state: IStoreStates) => state.productDelete
   )
 
+  const createdProduct = useSelector(
+    (state: IStoreStates) => state.productCreate
+  )
+
   const navigate = useNavigate()
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_CREATE_RESET })
+
     if (!userInfo || !userInfo.isAdmin) {
       navigate('/login')
     }
+
+    if (createdProduct.product) {
+      navigate(`/admin/produto/${createdProduct.product._id}`)
+    }
+
     dispatch(listProducts())
-  }, [dispatch, navigate, userInfo, deletedProduct.success])
+  }, [
+    dispatch,
+    navigate,
+    userInfo,
+    deletedProduct.success,
+    createdProduct.product,
+  ])
 
   const deleteHandler = (productId: string) => {
     if (!window.confirm('Confimar remoção do Produto')) return
@@ -37,7 +60,9 @@ function ProductList() {
     dispatch(deleteProduct(productId))
   }
 
-  const createProductHandler = () => {}
+  const createProductHandler = () => {
+    dispatch(createProduct())
+  }
 
   return (
     <>
@@ -55,6 +80,11 @@ function ProductList() {
       {deletedProduct.loading && <Loader />}
       {deletedProduct.error && (
         <Message variant="danger">{deletedProduct.error}</Message>
+      )}
+
+      {createdProduct.loading && <Loader />}
+      {createdProduct.error && (
+        <Message variant="danger">{createdProduct.error}</Message>
       )}
 
       {loading ? (
