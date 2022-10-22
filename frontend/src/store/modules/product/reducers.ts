@@ -1,6 +1,10 @@
 import { ActionType, IProductListState } from './types'
 
 import {
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_RESET,
+  PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
@@ -66,6 +70,21 @@ export const productDelete = (state = actionState, action: ActionType) => {
       return { ...state, loading: false, success: true }
     case PRODUCT_DELETE_FAIL:
       return { ...state, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productCreate = (state = detailState, action: ActionType) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REQUEST:
+      return { ...state, loading: true }
+    case PRODUCT_CREATE_SUCCESS:
+      return { ...state, loading: false, product: action.payload }
+    case PRODUCT_CREATE_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case PRODUCT_CREATE_RESET:
+      return { ...detailState }
     default:
       return state
   }
