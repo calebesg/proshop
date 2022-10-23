@@ -7,7 +7,8 @@ import FormContainer from '../components/FormContainer'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { IStoreStates, productDetail } from '../store'
+import { IStoreStates, productDetail, updateProduct } from '../store'
+import { PRODUCT_UPDATE_RESET } from '../store/modules/product/constants'
 
 function ProductEdit() {
   const [name, setName] = useState('')
@@ -26,7 +27,17 @@ function ProductEdit() {
     return state.productDetail
   })
 
+  const updatedProduct = useSelector((state: IStoreStates) => {
+    return state.productUpdate
+  })
+
   useEffect(() => {
+    if (updatedProduct.product) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      navigate('/admin/produto')
+      return
+    }
+
     if (!product.name || product._id !== productId) {
       dispatch(productDetail(productId))
       return
@@ -39,10 +50,23 @@ function ProductEdit() {
     setCategory(product.category)
     setCountInStock(product.countInStock)
     setDescription(product.description)
-  }, [dispatch, navigate, productId, product])
+  }, [dispatch, navigate, productId, product, updatedProduct.product])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        countInStock,
+        description,
+      })
+    )
   }
 
   return (
@@ -53,6 +77,11 @@ function ProductEdit() {
 
       <FormContainer>
         <h1>Atualizar dados</h1>
+
+        {updatedProduct.loading && <Loader />}
+        {updatedProduct.error && (
+          <Message variant="danger">{updatedProduct.error}</Message>
+        )}
 
         {loading ? (
           <Loader />

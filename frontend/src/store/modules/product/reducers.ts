@@ -14,6 +14,10 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_RESET,
+  PRODUCT_UPDATE_SUCCESS,
 } from './constants'
 
 const listState: IProductListState = {
@@ -84,6 +88,21 @@ export const productCreate = (state = detailState, action: ActionType) => {
     case PRODUCT_CREATE_FAIL:
       return { ...state, loading: false, error: action.payload }
     case PRODUCT_CREATE_RESET:
+      return { ...detailState }
+    default:
+      return state
+  }
+}
+
+export const productUpdate = (state = detailState, action: ActionType) => {
+  switch (action.type) {
+    case PRODUCT_UPDATE_REQUEST:
+      return { ...state, loading: true }
+    case PRODUCT_UPDATE_SUCCESS:
+      return { ...state, loading: false, product: action.payload }
+    case PRODUCT_UPDATE_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case PRODUCT_UPDATE_RESET:
       return { ...detailState }
     default:
       return state
