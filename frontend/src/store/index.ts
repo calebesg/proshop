@@ -15,6 +15,7 @@ export {
   productDetail,
   deleteProduct,
   createProduct,
+  updateProduct,
 } from './modules/product/actions'
 
 // CART ========================================
