@@ -9,6 +9,8 @@ import Loader from '../components/Loader'
 
 import { IStoreStates, productDetail, updateProduct } from '../store'
 import { PRODUCT_UPDATE_RESET } from '../store/modules/product/constants'
+import axios from 'axios'
+import api from '../libs/api'
 
 function ProductEdit() {
   const [name, setName] = useState('')
@@ -18,6 +20,7 @@ function ProductEdit() {
   const [category, setCategory] = useState('')
   const [countInStock, setCountInStock] = useState(0)
   const [description, setDescription] = useState('')
+  const [uploading, setUploading] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -51,6 +54,31 @@ function ProductEdit() {
     setCountInStock(product.countInStock)
     setDescription(product.description)
   }, [dispatch, navigate, productId, product, updatedProduct.product])
+
+  const uploadFileHandler = async (event: any) => {
+    const file = event.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await api.post('/api/upload', formData, config)
+
+      setImage(data)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setUploading(false)
+    }
+  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -117,6 +145,12 @@ function ProductEdit() {
                 value={image}
                 onChange={e => setImage(e.target.value)}
               ></Form.Control>
+              <Form.Control
+                id="image-file"
+                type="file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand">
