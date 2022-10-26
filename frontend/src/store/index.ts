@@ -44,4 +44,5 @@ export {
   getOrderDetails,
   orderPay,
   getOrders,
+  getOrdersAdmin,
 } from './modules/order/actions'
