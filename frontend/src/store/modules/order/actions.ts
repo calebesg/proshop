@@ -8,6 +8,9 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_ADMIN_FAIL,
+  ORDER_LIST_ADMIN_REQUEST,
+  ORDER_LIST_ADMIN_SUCCESS,
   ORDER_LIST_FAIL,
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
@@ -154,6 +157,41 @@ export const getOrders: ActionCreator<any> = () => {
     } catch (error: any) {
       dispatch({
         type: ORDER_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+}
+
+export const getOrdersAdmin: ActionCreator<any> = () => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({
+        type: ORDER_LIST_ADMIN_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await api.get('/api/orders', config)
+
+      dispatch({
+        type: ORDER_LIST_ADMIN_SUCCESS,
+        payload: data,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: ORDER_LIST_ADMIN_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

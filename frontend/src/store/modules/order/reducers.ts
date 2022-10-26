@@ -7,6 +7,9 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_ADMIN_FAIL,
+  ORDER_LIST_ADMIN_REQUEST,
+  ORDER_LIST_ADMIN_SUCCESS,
   ORDER_LIST_FAIL,
   ORDER_LIST_REQUEST,
   ORDER_LIST_RESET,
@@ -86,6 +89,19 @@ export const orderList = (state = ordersState, action: ActionType) => {
       return { ...state, loading: false, error: action.payload }
     case ORDER_LIST_RESET:
       return { ...ordersState }
+    default:
+      return state
+  }
+}
+
+export const orderListAdmin = (state = ordersState, action: ActionType) => {
+  switch (action.type) {
+    case ORDER_LIST_ADMIN_REQUEST:
+      return { ...state, loading: true }
+    case ORDER_LIST_ADMIN_SUCCESS:
+      return { ...state, loading: false, orders: action.payload }
+    case ORDER_LIST_ADMIN_FAIL:
+      return { ...state, loading: false, error: action.payload }
     default:
       return state
   }

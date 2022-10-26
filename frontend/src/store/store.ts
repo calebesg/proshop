@@ -26,6 +26,7 @@ import {
   orderDetail,
   orderPay,
   orderList,
+  orderListAdmin,
 } from './modules/order/reducers'
 import { IDeleteUserState, IUserList, IUserState } from './modules/user/types'
 import { IOrder, IOrderList, IOrderPay } from './modules/order/types'
@@ -48,6 +49,7 @@ const reducers = combineReducers({
   orderDetails: orderDetail,
   orderPay: orderPay,
   userOrders: orderList,
+  adminOrders: orderListAdmin,
   listUsers: userListReducer,
 })
 
@@ -101,6 +103,7 @@ export interface IStoreStates {
   userUpdateProfile: IUserState
   userUpdate: IUserState
   userOrders: IOrderList
+  adminOrders: IOrderList
   orderCreate: IOrder
   orderDetails: IOrder
   orderPay: IOrderPay
