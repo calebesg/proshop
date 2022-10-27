@@ -1,17 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col, Row, ListGroup, Image, Card } from 'react-bootstrap'
-import { useParams, Link } from 'react-router-dom'
+import { Col, Row, ListGroup, Image, Card, Button } from 'react-bootstrap'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { PayPalButton } from 'react-paypal-button-v2'
 
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { IStoreStates, getOrderDetails, orderPay } from '../store'
-import { ORDER_PAY_RESET } from '../store/modules/order/constants'
+import { IStoreStates, getOrderDetails, orderPay, orderDeliver } from '../store'
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from '../store/modules/order/constants'
 import api from '../libs/api'
-import { bindActionCreators } from 'redux'
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 
 function Order() {
   const [scriptReady, setScriptReady] = useState(false)
@@ -22,15 +23,24 @@ function Order() {
     (state: IStoreStates) => state.orderDetails
   )
 
-  const {
-    error: errorPay,
-    loading: loadingPay,
-    success: successPay,
-  } = useSelector((state: IStoreStates) => state.orderPay)
+  const { userInfo } = useSelector((state: IStoreStates) => state.userLogin)
+
+  const { loading: loadingPay, success: successPay } = useSelector(
+    (state: IStoreStates) => state.orderPay
+  )
+
+  const { loading: loadingDeliver, success: successDeliver } = useSelector(
+    (state: IStoreStates) => state.orderDeliver
+  )
 
   const { id: orderId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate('/login')
+    }
+
     const addPayPalScript = async () => {
       const { data: clientId } = await api.get('/api/config/paypal')
 
@@ -45,8 +55,9 @@ function Order() {
       document.body.appendChild(script)
     }
 
-    if (!order || successPay) {
+    if (!order || successPay || successDeliver) {
       dispatch({ type: ORDER_PAY_RESET })
+      dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
       return
     }
@@ -58,7 +69,7 @@ function Order() {
     }
 
     setScriptReady(true)
-  }, [orderId, dispatch, order, successPay])
+  }, [orderId, dispatch, order, successPay, successDeliver])
 
   const itemsPrice = useMemo(() => {
     return (
@@ -70,6 +81,10 @@ function Order() {
   const successPaymentHandler = (paymentResult: any) => {
     console.log(paymentResult)
     dispatch(orderPay(orderId, paymentResult))
+  }
+
+  const deliverHandler = () => {
+    dispatch(orderDeliver(order))
   }
 
   if (loading) return <Loader />
@@ -211,6 +226,19 @@ function Order() {
                       onSuccess={successPaymentHandler}
                     />
                   )}
+                </ListGroup.Item>
+              )}
+
+              {loadingDeliver && <Loader />}
+              {userInfo?.isAdmin && order?.isPaid && !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={deliverHandler}
+                  >
+                    Marcar como enviado
+                  </Button>
                 </ListGroup.Item>
               )}
             </ListGroup>
