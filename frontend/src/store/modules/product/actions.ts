@@ -6,6 +6,9 @@ import { ActionType } from './types'
 import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
@@ -161,6 +164,45 @@ export const updateProduct: ActionCreator<any> = product => {
     } catch (error: any) {
       dispatch({
         type: PRODUCT_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+}
+
+export const createProductReview: ActionCreator<any> = (productId, review) => {
+  return async (dispatch: Dispatch<ActionType>, getState: any) => {
+    try {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await api.put(
+        `/api/products/${productId}/review`,
+        review,
+        config
+      )
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      })
+    } catch (error: any) {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
