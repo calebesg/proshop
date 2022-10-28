@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv'
 import path from 'path'
 import express from 'express'
 import cors from 'cors'
+import morgan from 'morgan'
 
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
@@ -10,11 +11,15 @@ import orderRoutes from './routes/orderRoutes'
 import uploadRoutes from './routes/uploadRoutes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
-dotenv.config() //uPDATE
+dotenv.config()
 
 connectDB()
 
 const app = express()
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 app.use(cors())
 app.use(express.json())
