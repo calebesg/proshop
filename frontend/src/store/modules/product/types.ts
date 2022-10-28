@@ -1,3 +1,11 @@
+interface Review {
+  _id: string
+  name: string
+  rating: number
+  createdAt: string
+  comment: string
+}
+
 export interface IProduct {
   _id: string
   name: string
@@ -9,6 +17,7 @@ export interface IProduct {
   countInStock: number
   rating: number
   numReviews: number
+  reviews: Review[]
 }
 
 export interface ActionType {

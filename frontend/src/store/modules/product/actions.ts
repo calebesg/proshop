@@ -191,11 +191,7 @@ export const createProductReview: ActionCreator<any> = (productId, review) => {
         },
       }
 
-      const { data } = await api.put(
-        `/api/products/${productId}/review`,
-        review,
-        config
-      )
+      await api.post(`/api/products/${productId}/review`, review, config)
 
       dispatch({
         type: PRODUCT_CREATE_REVIEW_SUCCESS,
