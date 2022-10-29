@@ -1,6 +1,9 @@
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
+
+import SearchBox from './SearchBox'
+
 import { IStoreStates, logout } from '../store'
 
 function Header() {
@@ -14,6 +17,9 @@ function Header() {
           <LinkContainer to="/">
             <Navbar.Brand>ProShop</Navbar.Brand>
           </LinkContainer>
+
+          <SearchBox />
+
           <Nav className="ml-auto">
             <LinkContainer to="/carrinho">
               <Nav.Link>

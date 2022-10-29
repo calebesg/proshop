@@ -5,17 +5,22 @@ import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+
 import { IStoreStates, listProducts } from '../store'
+import { useParams } from 'react-router-dom'
 
 function Home() {
+  const params = useParams()
+  const keyword = params.term
+
   const dispatch = useDispatch()
   const { error, loading, products } = useSelector((state: IStoreStates) => {
     return state.productList
   })
 
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(keyword))
+  }, [dispatch, keyword])
 
   if (loading) {
     return (

@@ -28,6 +28,7 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/busca/:term" element={<Home />} />
             <Route path="/produto/:id" element={<Product />} />
             <Route path="/carrinho" element={<ShoppingCart />}>
               <Route path="/carrinho/:id" element={<ShoppingCart />} />
