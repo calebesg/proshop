@@ -24,12 +24,12 @@ import {
   PRODUCT_UPDATE_SUCCESS,
 } from './constants'
 
-export const listProducts: ActionCreator<any> = () => {
+export const listProducts: ActionCreator<any> = (keyword = '') => {
   return async (dispatch: Dispatch<ActionType>): Promise<Action> => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
 
-      const { data } = await api.get('/api/products')
+      const { data } = await api.get(`/api/products?keyword=${keyword}`)
 
       return dispatch({
         type: PRODUCT_LIST_SUCCESS,
