@@ -27,6 +27,8 @@ import {
 const listState: IProductListState = {
   loading: false,
   products: [],
+  page: 0,
+  totalPage: 0,
   error: '',
 }
 
@@ -49,7 +51,13 @@ export const productList = (state = listState, action: ActionType) => {
     case PRODUCT_LIST_REQUEST:
       return { ...state, loading: true }
     case PRODUCT_LIST_SUCCESS:
-      return { ...state, loading: false, products: action.payload }
+      return {
+        ...state,
+        loading: false,
+        products: action.payload.product,
+        page: action.payload.page,
+        totalPage: action.payload.totalPage,
+      }
     case PRODUCT_LIST_FAIL:
       return { ...state, loading: false, error: action.payload }
     default:

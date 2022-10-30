@@ -28,6 +28,8 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/pagina/:page" element={<Home />} />
+            <Route path="/busca/:term/pagina/:page" element={<Home />} />
             <Route path="/busca/:term" element={<Home />} />
             <Route path="/produto/:id" element={<Product />} />
             <Route path="/carrinho" element={<ShoppingCart />}>
@@ -42,6 +44,7 @@ function App() {
             <Route path="/admin/userlist" element={<UserList />} />
             <Route path="/admin/usuario/:id/edit" element={<UserEdit />} />
             <Route path="/admin/produto" element={<ProductList />} />
+            <Route path="/admin/produto/:page" element={<ProductList />} />
             <Route path="/admin/produto/:id/edit" element={<ProductEdit />} />
             <Route path="/admin/orders" element={<OrderList />} />
             <Route path="/resumo" element={<PlaceOrder />} />
