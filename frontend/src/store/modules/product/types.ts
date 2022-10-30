@@ -28,6 +28,8 @@ export interface ActionType {
 export interface IProductListState {
   loading: boolean
   products: IProduct[]
+  page: number
+  totalPage: number
   error: string
 }
 

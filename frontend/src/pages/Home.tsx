@@ -8,19 +8,31 @@ import Message from '../components/Message'
 
 import { IStoreStates, listProducts } from '../store'
 import { useParams } from 'react-router-dom'
+import Paginate from '../components/Paginate'
 
 function Home() {
   const params = useParams()
-  const keyword = params.term
+  const keyword = params.term || ''
+  const page = params.page || 1
 
   const dispatch = useDispatch()
-  const { error, loading, products } = useSelector((state: IStoreStates) => {
+  const {
+    error,
+    loading,
+    products,
+    page: currentPage,
+    totalPage,
+  } = useSelector((state: IStoreStates) => {
     return state.productList
   })
 
+  const { userInfo } = useSelector((state: IStoreStates) => {
+    return state.userLogin
+  })
+
   useEffect(() => {
-    dispatch(listProducts(keyword))
-  }, [dispatch, keyword])
+    dispatch(listProducts(keyword, page))
+  }, [dispatch, keyword, page])
 
   if (loading) {
     return (
@@ -47,6 +59,13 @@ function Home() {
           )
         })}
       </Row>
+
+      <Paginate
+        keyword={keyword}
+        page={currentPage}
+        totalPage={totalPage}
+        isAdmin={userInfo?.isAdmin}
+      />
     </>
   )
 }
