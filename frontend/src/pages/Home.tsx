@@ -5,10 +5,11 @@ import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
 
 import { IStoreStates, listProducts } from '../store'
 import { useParams } from 'react-router-dom'
-import Paginate from '../components/Paginate'
 
 function Home() {
   const params = useParams()
@@ -48,6 +49,8 @@ function Home() {
 
   return (
     <>
+      {!keyword && <ProductCarousel />}
+
       <h1>Ultimos Produtos</h1>
 
       <Row>

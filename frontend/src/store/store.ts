@@ -10,6 +10,7 @@ import {
   productCreate,
   productUpdate,
   productCreateReview,
+  productTopRated,
 } from './modules/product/reducers'
 import { cartReducer } from './modules/cart/reducers'
 import { ICartState } from './modules/cart/types'
@@ -41,6 +42,7 @@ const reducers = combineReducers({
   productCreate: productCreate,
   productUpdate: productUpdate,
   productCreateReview: productCreateReview,
+  productTopRated: productTopRated,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -101,6 +103,7 @@ export interface IStoreStates {
   productCreate: IProductDetailState
   productUpdate: IProductDetailState
   productCreateReview: IProductActionState
+  productTopRated: IProductListState
   cart: ICartState
   userLogin: IUserState
   userRegister: IUserState
