@@ -19,6 +19,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_TOP_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
@@ -205,6 +208,26 @@ export const createProductReview: ActionCreator<any> = (productId, review) => {
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
+      })
+    }
+  }
+}
+
+export const listTopProducts: ActionCreator<any> = () => {
+  return async (dispatch: Dispatch<ActionType>): Promise<Action> => {
+    try {
+      dispatch({ type: PRODUCT_TOP_REQUEST })
+
+      const { data } = await api.get(`/api/products/top`)
+
+      return dispatch({
+        type: PRODUCT_TOP_SUCCESS,
+        payload: data,
+      })
+    } catch (error: any) {
+      return dispatch({
+        type: PRODUCT_TOP_FAIL,
+        payload: error.message,
       })
     }
   }
