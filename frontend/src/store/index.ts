@@ -17,6 +17,7 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
+  listTopProducts,
 } from './modules/product/actions'
 
 // CART ========================================
