@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button, Row, Col, Table } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -12,7 +13,7 @@ import {
   updateUserProfile,
   getOrders,
 } from '../store'
-import { LinkContainer } from 'react-router-bootstrap'
+import { USER_UPDATE_PROFILE_RESET } from '../store/modules/user/constants'
 
 function Profile() {
   const [name, setName] = useState('')
@@ -51,7 +52,8 @@ function Profile() {
       return
     }
 
-    if (!userInfo) {
+    if (!userInfo || userUpdated) {
+      dispatch({ type: USER_UPDATE_PROFILE_RESET })
       dispatch(getUserDetail('profile'))
       dispatch(getOrders())
       return
@@ -59,7 +61,7 @@ function Profile() {
 
     setName(userInfo.name)
     setEmail(userInfo.email)
-  }, [navigate, loggedUser, userInfo, dispatch])
+  }, [navigate, loggedUser, userInfo, dispatch, userUpdated])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
