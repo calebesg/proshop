@@ -6,6 +6,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 import { IStoreStates, productDetail, createProductReview } from '../store'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../store/modules/product/constants'
@@ -68,6 +69,8 @@ function Product() {
 
   return (
     <>
+      <Meta title={product.name} />
+
       <Link className="btn btn-dark my-3" to="/">
         Voltar
       </Link>
