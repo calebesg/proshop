@@ -25,6 +25,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  USER_UPDATE_PROFILE_RESET,
 } from './constants'
 
 const initialState: IUserState = {
@@ -103,6 +104,8 @@ export const userUpdateProfileReducer = (
       return { ...state, loading: false, userInfo: action.payload }
     case USER_UPDATE_PROFILE_FAIL:
       return { ...state, loading: false, error: action.payload }
+    case USER_UPDATE_PROFILE_RESET:
+      return { ...initialState }
     default:
       return state
   }
