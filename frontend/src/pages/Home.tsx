@@ -7,9 +7,11 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
 
 import { IStoreStates, listProducts } from '../store'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Home() {
   const params = useParams()
@@ -49,7 +51,9 @@ function Home() {
 
   return (
     <>
-      {!keyword && <ProductCarousel />}
+      <Meta />
+
+      {!keyword ? <ProductCarousel /> : <Link to="/">Voltar</Link>}
 
       <h1>Ultimos Produtos</h1>
 
