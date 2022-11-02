@@ -36,6 +36,8 @@ export const listProducts: ActionCreator<any> = (keyword = '', page = 1) => {
         `/api/products?keyword=${keyword}&page=${page}`
       )
 
+      console.log(data)
+
       return dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: data,

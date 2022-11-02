@@ -57,7 +57,7 @@ export const productList = (state = listState, action: ActionType) => {
       return {
         ...state,
         loading: false,
-        products: action.payload.product,
+        products: action.payload.products,
         page: action.payload.page,
         totalPage: action.payload.totalPage,
       }

@@ -49,6 +49,8 @@ function Home() {
     return <Message variant="danger">{error}</Message>
   }
 
+  console.log(products)
+
   return (
     <>
       <Meta />

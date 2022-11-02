@@ -24,7 +24,7 @@ const getProducts = asyncHandler(async (req: Request, res: Response) => {
     .limit(pageSize)
     .skip(pageSize - (page - 1))
 
-  res.json({ products, page, totalPage: Math.ceil(count / pageSize) })
+  res.json({ products, page, totalPage: Math.round(count / pageSize) })
 })
 
 // @desc    Fetch single product
