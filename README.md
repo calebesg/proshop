@@ -32,6 +32,7 @@
 
 - ⚛️ **React Js** — A JavaScript library for building user interfaces
 - 💹 **Node Js** — A web framework for Node Js
+- ⚛️ **Redux** — A Predictable State Container for JS Apps
 
 ## 🏃💨 Getting started
 
