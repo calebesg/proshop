@@ -30,9 +30,11 @@
 
 ## 💻 Technologies
 
-- ⚛️ **React Js** — A JavaScript library for building user interfaces
-- 💹 **Node Js** — A web framework for Node Js
-- ⚛️ **Redux** — A Predictable State Container for JS Apps
+- [React Js](https://pt-br.reactjs.org/) — A JavaScript library for building user interfaces
+- [Node Js](https://nodejs.org/en/) — A web framework for Node Js
+- [Redux](https://redux.js.org/) — A Predictable State Container for JS Apps
+- [Typescript](https://www.typescriptlang.org/) — A Program lamguage
+- [Bootstrap](https://react-bootstrap.github.io/) — A front-end framework
 
 ## 🏃💨 Getting started
 
